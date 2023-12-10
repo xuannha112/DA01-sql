@@ -39,6 +39,13 @@ ORDER BY id
 SELECT part, assembly_step FROM parts_assembly
 WHERE finish_date IS NULL
 --EX14
+select * from lyft_drivers
+where yearly_salary <= 30000 or yearly_salary >= 70000
+--EX15
+select advertising_channel from uber_advertising
+where money_spent >= 100000 and year = 2019
+
+
 
 
 
