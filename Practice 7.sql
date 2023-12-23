@@ -36,7 +36,10 @@ lag(tweet_count,1) over(partition by user_id order by tweet_date) as lag1,
 lag(tweet_count,2) over(partition by user_id order by tweet_date) as lag2
 FROM tweets)
 select user_id, tweet_date,
-round((tweet_count +lag1+lag2)/3,2) as rolling_avg_3d
+case 
+when row_number() over(partition by user_id order by tweet_date) =1 then tweet_count
+when row_number() over(partition by user_id order by tweet_date) =2 then (tweet_count+lag1)/2 
+else round((tweet_count +lag1+lag2)/3,2) end
 from new_table
 --EX6
 with new_table as(
