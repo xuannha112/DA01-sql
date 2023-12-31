@@ -4,7 +4,7 @@ select format_datetime('%Y-%m',o.created_at)as month, format_datetime('%Y',o.cre
 p.category as product_category,sum(sale_price) as TPV, count(i.order_id) as TPO,sum(p.cost) as total_cost, 
 sum(sale_price)-sum(p.cost) as total_ptofit,(sum(sale_price)-sum(p.cost))/sum(p.cost) as Profit_to_cost_ratio
 from bigquery-public-data.thelook_ecommerce.order_items as i
-join bigquery-public-data.thelook_ecommerce.orders as o on i.user_id=o.user_id
+join bigquery-public-data.thelook_ecommerce.orders as o on i.order_id=o.order_id
 join bigquery-public-data.thelook_ecommerce.products as p on p.id=i.product_id
 where i.returned_at is null
 group by 1,2,3
